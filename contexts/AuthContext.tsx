@@ -1,5 +1,5 @@
 import { createContext, ReactNode, useEffect, useState } from "react";
-import { api } from "../services/api";
+import { api } from "../services/apiClient";
 import Router from "next/router";
 import { destroyCookie, parseCookies, setCookie } from "nookies"
 
@@ -85,7 +85,10 @@ export function AuthProvider({ children }: AuthProviderProps) {
       Router.push('/dashboard')
     }
     catch (err) {
-      signOut()
+      if(process.browser){
+        signOut()
+      }
+    
     }
 
 
